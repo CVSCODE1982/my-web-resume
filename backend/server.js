@@ -2,25 +2,21 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import projectRoutes from './routes/projects.js'; // Import the routes
+import projectRoutes from './routes/projects.js';
 
 dotenv.config();
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("MongoDB Connected"))
-    .catch(err => console.log(err));
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
-// Use routes
-app.use('/projects', projectRoutes); // Mount the project routes
+app.use('/projects', projectRoutes);
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-// This code sets up an Express server with CORS and JSON parsing middleware. It connects to a MongoDB database using Mongoose and imports project routes for handling HTTP requests related to projects. The server listens on a specified port, defaulting to 5000 if not provided in the environment variables.
-// The server is configured to use environment variables for sensitive information like the MongoDB connection URI, which is loaded using dotenv. The server logs a message indicating that it is running and connected to the database.
+app.listen(5000, () => console.log('Server running on port 5000'));
+// This code sets up an Express server that connects to a MongoDB database using Mongoose. It uses the dotenv package to load environment variables from a .env file, and the cors package to enable Cross-Origin Resource Sharing. The server listens on port 5000 and uses a router for handling requests related to projects, which is defined in another file (routes/projects.js). The server is configured to parse JSON request bodies.
+// The MongoDB connection is established using the connection string stored in the MONGO_URI environment variable. If the connection is successful, a message is logged to the console; otherwise, an error message is displayed.   
